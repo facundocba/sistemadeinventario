@@ -1,28 +1,30 @@
 const Sales = require("../models/sales");
-const Product = require("../models/Product");
+const Product = require("../models/product");
 
-
-const soldStock = async (productID, stockSoldData) => {
-
-  // Updating sold stock
+const updateSoldStock = async (productID, stockSoldData) => {
   try {
-    
-    const myProductData = await Product.findOne({ _id: productID });
-    let myUpdatedStock = myProductData.stock - stockSoldData;
-    console.log("MY SOLD STOCK: ", myUpdatedStock);
+    const productData = await Product.findOne({ _id: productID });
 
-    const SoldStock = await Product.findByIdAndUpdate(
+    if (!productData) {
+      throw new Error("Product not found");
+    }
+
+    const updatedStock = productData.stock - stockSoldData;
+    console.log("Updated Sold Stock: ", updatedStock);
+
+    const updatedProduct = await Product.findByIdAndUpdate(
       { _id: productID },
       {
-        stock: myUpdatedStock,
+        stock: updatedStock,
       },
       { new: true }
     );
-    console.log(SoldStock);
 
+    console.log("Updated Product: ", updatedProduct);
   } catch (error) {
-    console.error("Error updating sold stock ", error);
+    console.error("Error updating sold stock: ", error.message);
+    throw error; // Puedes decidir lanzar el error o manejarlo según tus necesidades.
   }
 };
 
-module.exports = soldStock;
+module.exports = updateSoldStock;

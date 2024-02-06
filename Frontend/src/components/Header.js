@@ -12,7 +12,7 @@ const navigation = [
   { name: "Manage Store", href: "/manage-store", current: false },
 ];
 
-const userNavigation = [{ name: "Sign out", href: "./login" }];
+const userNavigation = [{ name: "Salir", href: "./login" }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -24,7 +24,7 @@ export default function Header() {
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
+      <Disclosure as="nav" style={{ backgroundColor: '#0D5CA1' }}>
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -34,11 +34,11 @@ export default function Header() {
                       <div className="flex justify-center items-center gap-2">
                         <img
                           className="h-8 w-8"
-                          src={require("../assets/logo.png")}
+                          src={require("../assets/logoconfondo.png")}
                           alt="Inventory Management System"
                         />
                         <span className="font-bold text-white italic">
-                          Inventory Management
+                        Plataforma de Gestión de Inventario
                         </span>
                       </div>
                     </div>
@@ -161,7 +161,7 @@ export default function Header() {
                       type="button"
                       className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
-                      <span className="sr-only">View notifications</span>
+                      <span className="sr-only">Ver</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                   </div>

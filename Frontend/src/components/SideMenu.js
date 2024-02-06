@@ -7,59 +7,59 @@ function SideMenu() {
   return (
     <div className="h-full flex-col justify-between  bg-white hidden lg:flex ">
       <div className="px-4 py-6">
-        <nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
+          <nav aria-label="Main Nav" className="mt-6 flex flex-col space-y-1">
           <Link
-            to="/"
+            to="/inventario"
             className="flex items-center gap-2 rounded-lg hover:bg-gray-100 px-4 py-2 text-gray-700"
           >
             <img
               alt="dashboard-icon"
-              src={require("../assets/dashboard-icon.png")}
+              src={require("../assets/homecolor.jpg")}
             />
-            <span className="text-sm font-medium"> Dashboard </span>
+            <span className="text-sm font-medium"> Inicio </span>
           </Link>
 
           <details className="group [&_summary::-webkit-details-marker]:hidden">
             <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-              <Link to="/inventory">
+              <Link to="/inventario">
                 <div className="flex items-center gap-2">
                   <img
                     alt="inventory-icon"
-                    src={require("../assets/inventory-icon.png")}
+                    src={require("../assets/inventariocolor.png")}
                   />
-                  <span className="text-sm font-medium"> Inventory </span>
+                  <span className="text-sm font-medium"> Inventario </span>
                 </div>
               </Link>
             </summary>
           </details>
 
           <Link
-            to="/purchase-details"
+            to="/ingresos"
             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
           >
             <img
               alt="purchase-icon"
-              src={require("../assets/supplier-icon.png")}
+              src={require("../assets/mascolor.png")}
             />
-            <span className="text-sm font-medium"> Purchase Details</span>
+            <span className="text-sm font-medium"> Ingresos</span>
           </Link>
           <Link
-            to="/sales"
+            to="/egresos"
             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
           >
-            <img alt="sale-icon" src={require("../assets/supplier-icon.png")} />
-            <span className="text-sm font-medium"> Sales</span>
+            <img alt="sale-icon" src={require("../assets/menoscolor.png")} />
+            <span className="text-sm font-medium"> Egresos</span>
           </Link>
 
           <details className="group [&_summary::-webkit-details-marker]:hidden">
             <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
-              <Link to="/manage-store">
+              <Link to="/dispensarios">
                 <div className="flex items-center gap-2">
                   <img
                     alt="store-icon"
-                    src={require("../assets/order-icon.png")}
+                    src={require("../assets/logocentros.png")}
                   />
-                  <span className="text-sm font-medium"> Manage Store </span>
+                  <span className="text-sm font-medium"> Centros de salud </span>
                 </div>
               </Link>
             </summary>

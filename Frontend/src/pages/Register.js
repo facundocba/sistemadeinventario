@@ -67,11 +67,11 @@ function Register() {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src={require("../assets/logo.png")}
-              alt="Your Company"
+              src={require("../assets/logoconfondo.png")}
+              alt="Sistema de control de inventario"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Register your account
+              Registra tu cuenta
             </h2>
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ function Register() {
                   type="text"
                   required
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="First Name"
+                  placeholder="Nombre"
                   value={form.firstName}
                   onChange={handleInputChange}
                 />
@@ -92,7 +92,7 @@ function Register() {
                   type="text"
                   required
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Last Name"
+                  placeholder="Apellido"
                   value={form.lastName}
                   onChange={handleInputChange}
                 />
@@ -105,7 +105,7 @@ function Register() {
                   autoComplete="email"
                   required
                   className="relative block w-full rounded-t-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Email address"
+                  placeholder="Emai"
                   value={form.email}
                   onChange={handleInputChange}
                 />
@@ -118,7 +118,7 @@ function Register() {
                   autoComplete="current-password"
                   required
                   className="relative block w-full rounded-b-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                   value={form.password}
                   onChange={handleInputChange}
                 />
@@ -130,7 +130,7 @@ function Register() {
                   autoComplete="phoneNumber"
                   required
                   className="relative block w-full rounded-b-md border-0 py-1.5 px-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="Phone Number"
+                  placeholder="Telefono"
                   value={form.phoneNumber}
                   onChange={handleInputChange}
                 />
@@ -152,7 +152,7 @@ function Register() {
                   htmlFor="remember-me"
                   className="ml-2 block text-sm text-gray-900"
                 >
-                  I Agree Terms & Conditons
+                  Terminos y condiciones
                 </label>
               </div>
 
@@ -160,7 +160,7 @@ function Register() {
                 <span
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Forgot your password?
+                  Olvidaste tu contraseña?
                 </span>
               </div>
             </div>
@@ -177,22 +177,22 @@ function Register() {
                       aria-hidden="true"
                     /> */}
                 </span>
-                Sign up
+                Ingresar
               </button>
               <p className="mt-2 text-center text-sm text-gray-600">
-                Or{" "}
+                O{" "}
                 <span
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Already Have an Account, Please
-                  <Link to="/login"> Signin now </Link>
+                  Ya tengo una cuenta, por favor
+                  <Link to="/login"> Ingresa ahora </Link>
                 </span>
               </p>
             </div>
           </form>
         </div>
         <div className="flex justify-center order-first sm:order-last">
-          <img src={require("../assets/Login.png")} alt="" />
+          <img src={require("../assets/copia3.jpeg")} alt="" />
         </div>
       </div>
     </>

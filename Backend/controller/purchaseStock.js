@@ -1,22 +1,40 @@
 const Purchase = require("../models/purchase");
-const Product = require("../models/Product");
+const Product = require("../models/product");
 
 const purchaseStock = async (productID, purchaseStockData) => {
-  // Updating Purchase stock
   try {
+    // Buscar el producto por su ID
     const myProductData = await Product.findOne({ _id: productID });
-    let myUpdatedStock = parseInt(myProductData.stock) + purchaseStockData;
 
-    const PurchaseStock = await Product.findByIdAndUpdate(
-      { _id: productID },
+    if (!myProductData) {
+      // Manejar el caso en que el producto no se encuentre
+      console.error("Producto no encontrado");
+      return;
+    }
+
+    // Actualizar el stock sumando la cantidad de la compra
+    const myUpdatedStock = parseInt(myProductData.stock) + parseInt(purchaseStockData);
+
+    // Actualizar el producto en la base de datos con el nuevo stock
+    const updatedProduct = await Product.findByIdAndUpdate(
+      productID,
       {
         stock: myUpdatedStock,
       },
       { new: true }
     );
-    console.log(PurchaseStock);
+
+    if (!updatedProduct) {
+      // Manejar el caso en que no se pudo actualizar el producto
+      console.error("No se pudo actualizar el producto");
+      return;
+    }
+
+    // Registro de éxito
+    console.log("Stock actualizado:", updatedProduct);
   } catch (error) {
-    console.error("Error updating Purchase stock ", error);
+    // Manejar errores
+    console.error("Error actualizando el stock de compra", error);
   }
 };
 

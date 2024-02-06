@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 
@@ -6,7 +6,7 @@ export default function AddPurchaseDetails({
   addSaleModalSetting,
   products,
   handlePageUpdate,
-  authContext
+  authContext,
 }) {
   const [purchase, setPurchase] = useState({
     userID: authContext.user,
@@ -16,13 +16,30 @@ export default function AddPurchaseDetails({
     totalPurchaseAmount: "",
   });
   const [open, setOpen] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const cancelButtonRef = useRef(null);
 
-  console.log("PPu: ", purchase);
+  // Filtrar productos según el término de búsqueda
+  const filteredProducts = products.filter((product) =>
+    `${product.name} - ${product.manufacturer}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
 
-  // Handling Input Change for input fields
+  // Handling Input Change para campos de entrada
   const handleInputChange = (key, value) => {
     setPurchase({ ...purchase, [key]: value });
+  };
+
+  // Manejar clic en un resultado de búsqueda
+  const handleResultClick = (productId, productName) => {
+    setPurchase({
+      ...purchase,
+      productID: productId,
+    });
+    setSearchTerm(productName);
+    setShowResults(false);
   };
 
   // POST Data
@@ -35,7 +52,7 @@ export default function AddPurchaseDetails({
       body: JSON.stringify(purchase),
     })
       .then((result) => {
-        alert("Purchase ADDED");
+        //alert("agregada");
         handlePageUpdate();
         addSaleModalSetting();
       })
@@ -88,7 +105,7 @@ export default function AddPurchaseDetails({
                         as="h3"
                         className="text-lg  py-4 font-semibold leading-6 text-gray-900 "
                       >
-                        Purchase Details
+                        Detalles del ingreso
                       </Dialog.Title>
                       <form action="#">
                         <div className="grid gap-4 mb-4 sm:grid-cols-2">
@@ -97,32 +114,44 @@ export default function AddPurchaseDetails({
                               htmlFor="productID"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Product Name
+                              Nombre del producto
                             </label>
-                            <select
-                              id="productID"
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              name="productID"
-                              onChange={(e) =>
-                                handleInputChange(e.target.name, e.target.value)
-                              }
-                            >
-                              <option selected="">Select Products</option>
-                              {products.map((element, index) => {
-                                return (
-                                  <option key={element._id} value={element._id}>
-                                    {element.name}
-                                  </option>
-                                );
-                              })}
-                            </select>
+                            <input
+                              type="text"
+                              placeholder="Buscar..."
+                              value={searchTerm}
+                              onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                setShowResults(true);
+                              }}
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            />
+                            {showResults && filteredProducts.length > 0 && (
+                              <ul className="bg-white border border-gray-300 rounded-md mt-1 shadow-md">
+                                {filteredProducts.map((result) => (
+                                  <li
+                                    key={result._id}
+                                    className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
+                                    onClick={() =>
+                                      handleResultClick(
+                                        result._id,
+                                        `${result.name} - ${result.manufacturer}`
+                                      )
+                                    }
+                                  >
+                                    {result.name} - {result.manufacturer}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
                           </div>
+                          {/* Resto de los campos */}
                           <div>
                             <label
                               htmlFor="quantityPurchased"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Quantity Purchased
+                              Cantidad comprada
                             </label>
                             <input
                               type="number"
@@ -130,7 +159,10 @@ export default function AddPurchaseDetails({
                               id="quantityPurchased"
                               value={purchase.quantityPurchased}
                               onChange={(e) =>
-                                handleInputChange(e.target.name, e.target.value)
+                                handleInputChange(
+                                  e.target.name,
+                                  e.target.value
+                                )
                               }
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               placeholder="0 - 999"
@@ -141,31 +173,30 @@ export default function AddPurchaseDetails({
                               htmlFor="totalPurchaseAmount"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Total Purchase Amount
+                              Monto total de compra
                             </label>
                             <input
-                              type="number"
+                              type="string"
                               name="totalPurchaseAmount"
                               id="price"
                               value={purchase.totalPurchaseAmount}
                               onChange={(e) =>
-                                handleInputChange(e.target.name, e.target.value)
+                                handleInputChange(
+                                  e.target.name,
+                                  e.target.value
+                                )
                               }
-                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              placeholder="$299"
+                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              
+                              placeholder="Responsable"
                             />
                           </div>
                           <div className="h-fit w-fit">
-                            {/* <Datepicker
-                              onChange={handleChange}
-                              show={show}
-                              setShow={handleClose}
-                            /> */}
                             <label
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                               htmlFor="purchaseDate"
                             >
-                              Purchase Date
+                              Fecha de compra
                             </label>
                             <input
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -174,57 +205,35 @@ export default function AddPurchaseDetails({
                               name="purchaseDate"
                               value={purchase.purchaseDate}
                               onChange={(e) =>
-                                handleInputChange(e.target.name, e.target.value)
+                                handleInputChange(
+                                  e.target.name,
+                                  e.target.value
+                                )
                               }
                             />
                           </div>
                         </div>
-                        <div className="flex items-center space-x-4">
-                          {/* <button
-                            type="submit"
-                            className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                          >
-                            Update product
-                          </button> */}
-                          {/* <button
+                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                          <button
                             type="button"
-                            className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                            onClick={addSale}
+                            style={{ backgroundColor: "#E91E63" }}
                           >
-                            <svg
-                              className="mr-1 -ml-1 w-5 h-5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                clip-rule="evenodd"
-                              ></path>
-                            </svg>
-                            Delete
-                          </button> */}
+                            Confirmar
+                          </button>
+                          <button
+                            type="button"
+                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                            onClick={() => addSaleModalSetting()}
+                            ref={cancelButtonRef}
+                          >
+                            Cancelar
+                          </button>
                         </div>
                       </form>
                     </div>
                   </div>
-                </div>
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button
-                    type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                    onClick={addSale}
-                  >
-                    Add
-                  </button>
-                  <button
-                    type="button"
-                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                    onClick={() => addSaleModalSetting()}
-                    ref={cancelButtonRef}
-                  >
-                    Cancel
-                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

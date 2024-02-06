@@ -31,7 +31,7 @@ export default function AddStore() {
       body: JSON.stringify(form),
     })
       .then((result) => {
-        alert("STORE ADDED");
+        alert("Agregado Correctamente");
         setOpen(false);
       })
       .catch((err) => console.log(err));
@@ -50,7 +50,7 @@ export default function AddStore() {
       .then((res) => res.json())
       .then((data) => {
         setForm({ ...form, image: data.url });
-        alert("Store Image Successfully Uploaded");
+        alert("Imagen Actualizada");
       })
       .catch((error) => console.log(error));
   };
@@ -101,7 +101,7 @@ export default function AddStore() {
                         as="h3"
                         className="text-lg font-semibold leading-6 text-gray-900 "
                       >
-                        Store Information
+                        Informacion
                       </Dialog.Title>
                       <form action="#">
                         <div className="grid gap-4 mb-4 sm:grid-cols-2">
@@ -110,7 +110,7 @@ export default function AddStore() {
                               htmlFor="name"
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                              Name
+                              Nombre
                             </label>
                             <input
                               type="text"
@@ -119,7 +119,7 @@ export default function AddStore() {
                               value={form.name}
                               onChange={handleInputChange}
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              placeholder="Enter Store Name"
+                              placeholder="Ingresar Nombre"
                             />
                           </div>
                           <div>
@@ -136,7 +136,7 @@ export default function AddStore() {
                               value={form.city}
                               onChange={handleInputChange}
                               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              placeholder="Enter City Name"
+                              placeholder="Ingresar Ciudad"
                             />
                           </div>
                           <div>
@@ -157,12 +157,12 @@ export default function AddStore() {
                               }
                             >
                               <option selected="" value="Electronics">
-                                Electronics
+                                Seleccionar
                               </option>
-                              <option value="Groceries">Groceries</option>
-                              <option value="Wholesale">WholeSale</option>
-                              <option value="SuperMart">SuperMart</option>
-                              <option value="Phones">Phones</option>
+                              <option value="Groceries">Centro Medico</option>
+                              <option value="Wholesale">Dispensario</option>
+                              <option value="SuperMart">Usuario</option>
+                              <option value="Phones">Otro</option>
                             </select>
                           </div>
                           <div className="sm:col-span-2">
@@ -177,7 +177,7 @@ export default function AddStore() {
                               rows="5"
                               name="address"
                               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              placeholder="Write a address..."
+                              placeholder="Ingresar barrio"
                               value={form.address}
                               onChange={handleInputChange}
                             ></textarea>
@@ -233,8 +233,9 @@ export default function AddStore() {
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                     onClick={addProduct}
+                    style={{ backgroundColor: '#E91E63' }}
                   >
-                    Add Store
+                    Confirmar
                   </button>
                   <button
                     type="button"
@@ -242,7 +243,7 @@ export default function AddStore() {
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >
-                    Cancel
+                    Cancelar
                   </button>
                 </div>
               </Dialog.Panel>

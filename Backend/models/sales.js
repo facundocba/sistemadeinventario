@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const SaleSchema = new mongoose.Schema(
   {
@@ -9,7 +10,7 @@ const SaleSchema = new mongoose.Schema(
     },
     ProductID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
+      ref: "Product",
       required: true,
     },
     StoreID: {
@@ -26,12 +27,15 @@ const SaleSchema = new mongoose.Schema(
       required: true,
     },
     TotalSaleAmount: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
   { timestamps: true }
 );
 
-const Sales = mongoose.model("sales", SaleSchema);
-module.exports = Sales;
+// Agrega la paginación al esquema
+SaleSchema.plugin(mongoosePaginate);
+
+const Sale = mongoose.model("Sale", SaleSchema);
+module.exports = Sale;

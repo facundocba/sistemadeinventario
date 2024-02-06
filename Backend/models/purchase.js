@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const PurchaseSchema = new mongoose.Schema(
   {
@@ -9,7 +10,7 @@ const PurchaseSchema = new mongoose.Schema(
     },
     ProductID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "product",
+      ref: "Product", // Usa la misma capitalización que en el modelo de producto
       required: true,
     },
     QuantityPurchased: {
@@ -21,12 +22,16 @@ const PurchaseSchema = new mongoose.Schema(
       required: true,
     },
     TotalPurchaseAmount: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
   { timestamps: true }
 );
 
-const Purchase = mongoose.model("purchase", PurchaseSchema);
+// Agrega la paginación al esquema
+PurchaseSchema.plugin(mongoosePaginate);
+
+const Purchase = mongoose.model("Purchase", PurchaseSchema);
+
 module.exports = Purchase;

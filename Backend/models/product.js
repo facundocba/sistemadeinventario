@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -24,6 +25,11 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Agrega la paginación al esquema
+ProductSchema.plugin(mongoosePaginate);
 
-const Product = mongoose.model("product", ProductSchema);
+const Product = mongoose.model("Product", ProductSchema);
 module.exports = Product;
+
+
+

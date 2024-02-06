@@ -1,18 +1,18 @@
 import React from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
+//import Dashboard from "./pages/Dashboard";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
-import Inventory from "./pages/Inventory";
+import Inventory from "./pages/Inventario";
 import NoPageFound from "./pages/NoPageFound";
 import AuthContext from "./AuthContext";
 import ProtectedWrapper from "./ProtectedWrapper";
 import { useEffect, useState } from "react";
-import Store from "./pages/Store";
-import Sales from "./pages/Sales";
-import PurchaseDetails from "./pages/PurchaseDetails";
+import Stores from "./pages/Dispensarios";
+import Sales from "./pages/Egresos";
+import PurchaseDetails from "./pages/Ingresos";
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -71,11 +71,11 @@ const App = () => {
               </ProtectedWrapper>
             }
           >
-            <Route index element={<Dashboard />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/purchase-details" element={<PurchaseDetails />} />
-            <Route path="/sales" element={<Sales />} />
-            <Route path="/manage-store" element={<Store />} />
+            
+            <Route path="/Inventario" element={<Inventory />} />
+            <Route path="/Ingresos" element={<PurchaseDetails />} />
+            <Route path="/Egresos" element={<Sales />} />
+            <Route path="/dispensarios" element={<Stores />} />
           </Route>
           <Route path="*" element={<NoPageFound />} />
         </Routes>

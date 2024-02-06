@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mongoose-paginate-v2": "^1.7.4",
+    "react-paginate": "^8.2.0"
+  }
+}
