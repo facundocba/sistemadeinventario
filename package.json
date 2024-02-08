@@ -2,5 +2,11 @@
   "dependencies": {
     "mongoose-paginate-v2": "^1.7.4",
     "react-paginate": "^8.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "scripts": {
+    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\""
   }
 }
